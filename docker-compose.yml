@@ -1,0 +1,12 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:12
+    network_mode: host
+    environment:
+      POSTGRES_PASSWORD: terraverge
+      POSTGRES_USER: terraverge
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+    pgdata:
