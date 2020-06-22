@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS plan (
   terraform_version varchar(10),
   git_remote text,
   git_commit varchar(50),
+  ci_url text,
   source text,
   resource_updated integer,
   resource_nooped integer,

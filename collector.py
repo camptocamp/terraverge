@@ -43,10 +43,11 @@ def parse_date(str):
 def insert_plan(request):
     with psycopg2.connect(connection_string) as conn:
         with conn.cursor() as curs:
-            curs.execute("INSERT INTO plan (terraform_version, git_remote, git_commit, source, generation_date, plan) VALUES (%s, %s, %s, %s, %s, %s)",
+            curs.execute("INSERT INTO plan (terraform_version, git_remote, git_commit, ci_url, source, generation_date, plan) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                          (request.values['terraform_version'],
                           request.values['git_remote'],
                           request.values['git_commit'],
+                          request.values['ci_url'],
                           request.values['source'],
                           parse_date(request.values['generation_date']),
                           json.loads(request.files['plan'].read())))
@@ -77,6 +78,7 @@ def submit_plan():
       Terraform version: <input type=text name=terraform_version value="0.12.21"><br>
       Git remote URL: <input type=text name=git_remote value="git.c2c/infra/tf-test/"><br>
       Git commit:<input type=text name=git_commit value="aabc4578d"><br>
+      CI URL :<input type=text name=git_commit value="http:gitlab/job/2332"><br>
       Source:<input type=text name=source value="local test"><br>
       Generation date: <input type=text name=generation_date value="2020-06-22T14:44:12+02:00"><br>
       Json Plan: <input type=file name=plan><br>
