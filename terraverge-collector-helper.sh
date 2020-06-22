@@ -52,12 +52,12 @@ generation_date=$(date -d "@$(stat -c %Y $1)" --iso-8601=seconds)
 
 # Post plan
 echo curl -X POST \
-    -F "psk=$TERRAVERGE_COLLECTOR_PSK" \
-    -F "terraform_version=$terraform_version" \
-    -F "git_remote=$git_remote" \
-    -F "git_commit=$git_commit" \
-    -F "ci_url=$ci_url" \
-    -F "source=$source" \
-    -F "generation_date=$generation_date" \
-    -F "plan=@$1" \
+    --from-string "psk=$TERRAVERGE_COLLECTOR_PSK" \
+    --from-string "terraform_version=$terraform_version" \
+    --from-string "git_remote=$git_remote" \
+    --from-string "git_commit=$git_commit" \
+    --from-string "ci_url=$ci_url" \
+    --from-string "source=$source" \
+    --from-string "generation_date=$generation_date" \
+    --from-string "plan=@$1" \
     $TERRAVERGE_COLLECTOR_URL
