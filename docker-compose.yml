@@ -2,11 +2,24 @@ version: '2'
 services:
   postgres:
     image: postgres:12
-    network_mode: host
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: terraverge
       POSTGRES_USER: terraverge
     volumes:
       - pgdata:/var/lib/postgresql/data
+  collector:
+    image: camptocamp/terraverge-collector
+    build: ./
+    ports:
+      - "5000:5000"
+    environment:
+      DEBUG: "true"
+      PGHOST: postgres
+      PGDATABASE: terraverge
+      PGUSER: terraverge
+      PGPASSWORD: terraverge
+      PSK: 12345
 volumes:
     pgdata:
