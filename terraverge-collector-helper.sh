@@ -59,5 +59,5 @@ echo curl -X POST \
     --form-string "ci_url=$ci_url" \
     --form-string "source=$source" \
     --form-string "generation_date=$generation_date" \
-    --form-string "plan=@$1" \
+    -F plan=@$1 \
     $TERRAVERGE_COLLECTOR_URL
