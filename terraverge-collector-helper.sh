@@ -51,7 +51,7 @@ fi
 generation_date=$(date -d "@$(stat -c %Y $1)" --iso-8601=seconds)
 
 # Post plan
-echo curl -X POST \
+curl -X POST \
     --form-string "psk=$TERRAVERGE_COLLECTOR_PSK" \
     --form-string "terraform_version=$terraform_version" \
     --form-string "git_remote=$git_remote" \
