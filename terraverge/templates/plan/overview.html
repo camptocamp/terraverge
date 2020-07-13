@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Overview{% endblock %}
+
+{% block content %}
+<h1>Overview</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+			<th scope="col">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			{% for entry in entries %}
+			
+			{% endfor %}
+		</tr>
+	</tbody>
+</table>
+{% endblock %}

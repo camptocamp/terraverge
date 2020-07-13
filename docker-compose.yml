@@ -9,17 +9,17 @@ services:
       POSTGRES_USER: terraverge
     volumes:
       - pgdata:/var/lib/postgresql/data
-  collector:
-    image: camptocamp/terraverge-collector
-    build: ./
-    ports:
-      - "5000:5000"
-    environment:
-      DEBUG: "true"
-      PGHOST: postgres
-      PGDATABASE: terraverge
-      PGUSER: terraverge
-      PGPASSWORD: terraverge
-      PSK: 12345
+        #  collector:
+        #    image: camptocamp/terraverge-collector
+        #    build: ./
+        #    ports:
+        #      - "5000:5000"
+        #    environment:
+        #      DEBUG: "true"
+        #      PGHOST: postgres
+        #      PGDATABASE: terraverge
+        #      PGUSER: terraverge
+        #      PGPASSWORD: terraverge
+        #      PSK: 12345
 volumes:
     pgdata:

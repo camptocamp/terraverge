@@ -16,6 +16,7 @@ if psk is None:
     raise Exception('Please specify a PSK')
 
 app = Flask(__name__)
+app.secret_key = b'~\xea\x12T\xc2\x1c\t\\\x97\xfb\xbe\x0cD8\xfc\xd2BC\x90[A\xd9\x0f\xb6'
 
 init_sql_file = 'init.sql'
 connection_string = ('host={host} '
@@ -50,7 +51,7 @@ def insert_plan(request):
                           request.values['ci_url'],
                           request.values['source'],
                           parse_date(request.values['generation_date']),
-                          json.loads(request.files['plan'].read())))
+                          json.loads(request.files['plan'].read().decode('utf8'))))
 
 @app.route('/plan', methods=['GET', 'POST'])
 def submit_plan():
@@ -58,7 +59,8 @@ def submit_plan():
         # check if the post request has the file part
         if 'plan' not in request.files:
             flash('No file part')
-            return redirect(request.url)
+            #return redirect(request.url)
+            return "no file part"
         file = request.files['plan']
         # if user does not select file, browser also
         # submit an empty part without filename
