@@ -1,23 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %}Overview{% endblock %}
+
+{% block title %}Last plans{% endblock %}
 
 {% block content %}
-<h1>Overview</h1>
+<h1>Last plans</h1>
 <table class="table">
 	<thead>
 		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Name</th>
+			<th scope="col">Date</th>
+			<th scope="col">Terraform Version</th>
+			<th scope="col">Git Remote</th>
+			<th scope="col">Git Commit</th>
+			<th scope="col">CI Pipeline</th>
+			<th scope="col">Source</th>
 			<th scope="col">Status</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			{% for entry in entries %}
-			
-			{% endfor %}
-		</tr>
+		{% for entry in data %}
+		<tr class={{ "table-success" if entry['convergence_success'] else "table-danger" }}>
+				<td>{{ entry['generation_date'] }}</td>
+				<td>{{ entry['terraform_version'] }}</td>
+				<td>{{ entry['git_remote'] }}</td>
+				<td>{{ entry['git_commit'][0:8] }}</td>
+				<td>{{ entry['ci_url'] }}</td>
+				<td>{{ entry['source'] }}</td>
+				<td><i style="font-size: 20px" class="{{ "fa fa-check-circle" if entry['convergence_success'] else "fa fa-times-circle" }}"></i></td>
+			</tr>
+		{% endfor %}
 	</tbody>
 </table>
 {% endblock %}

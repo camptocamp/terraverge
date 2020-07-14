@@ -59,8 +59,7 @@ def submit_plan():
         # check if the post request has the file part
         if 'plan' not in request.files:
             flash('No file part')
-            #return redirect(request.url)
-            return "no file part"
+            return redirect(request.url)
         file = request.files['plan']
         # if user does not select file, browser also
         # submit an empty part without filename
