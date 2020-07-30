@@ -15,7 +15,6 @@ if [ -z "$TERRAVERGE_COLLECTOR_URL" ] || [ -z "$TERRAVERGE_COLLECTOR_PSK" ]; the
     exit 3
 fi
 
-
 # Check terraform version
 if [ -f .terraform-version ]; then
     # Read .terraform-version
@@ -23,6 +22,12 @@ if [ -f .terraform-version ]; then
 else
     # try to find terraform version with cli
     terraform_version=$(terraform version | head -n 1 | cut -f 2 -d ' ' | cut -f 2 -d 'v')
+fi
+
+if [ "$(printf '%s\n' "0.12" "$terraform_version" | sort -V | head -n1)" = "0.12" ]; then
+    terraform show -json $1 > myplanjson
+else
+    echo "{}" > myplanjson
 fi
 
 # Check if we are in a gitlab pipeline
@@ -63,5 +68,9 @@ curl -v -X POST \
     --form-string "source=$source" \
     --form-string "generation_date=$generation_date" \
     --form-string "workspace=$workspace" \
-    -F plan=@$1 \
+    -F plan=@myplanjson \
     $TERRAVERGE_COLLECTOR_URL
+
+if [ -f "./myplanjson" ]; then
+    rm -f ./myplanjson
+fi
