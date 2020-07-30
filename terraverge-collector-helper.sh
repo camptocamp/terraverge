@@ -50,6 +50,9 @@ fi
 # Fetch date of plan
 generation_date=$(date -d "@$(stat -c %Y $1)" --iso-8601=seconds)
 
+# Get workspace
+workspace="$git_remote/$(git rev-parse --show-prefix)"
+
 # Post plan
 curl -v -X POST \
     --form-string "psk=$TERRAVERGE_COLLECTOR_PSK" \
@@ -59,5 +62,6 @@ curl -v -X POST \
     --form-string "ci_url=$ci_url" \
     --form-string "source=$source" \
     --form-string "generation_date=$generation_date" \
+    --form-string "workspace=$workspace" \
     -F plan=@$1 \
     $TERRAVERGE_COLLECTOR_URL
