@@ -51,7 +51,7 @@ fi
 generation_date=$(date -d "@$(stat -c %Y $1)" --iso-8601=seconds)
 
 # Get workspace
-workspace="$git_remote/$(git rev-parse --show-prefix)"
+workspace="$(echo $git_remote | rev | cut -d '/' -f 1 | rev)/$(git rev-parse --show-prefix)"
 
 # Post plan
 curl -v -X POST \
